@@ -1,0 +1,19 @@
+####
+
+POST http://localhost:3000/api/v1/post/create?userId=6705929ecea28d3bfec9e257
+Content-Type: application/json
+
+{
+  "title":"Vamos tentar pela última vez mas dessa vez mudando algumas coisas",
+  "author": "Vittor",
+  "details":"Mais uma vez criando apenas um texto bem bobo para colocar no banco de dados"
+}
+
+####
+
+DELETE http://localhost:3000/api/v1/post/delete?userId=6705929ecea28d3bfec9e257
+Content-Type: application/json
+
+{
+  "postId": "670592b3cea28d3bfec9e25b"
+}

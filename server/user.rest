@@ -1,0 +1,27 @@
+####
+
+GET http://localhost:3000/api/v1/user/details?userId=67057e88ff69fab369bfafc1
+
+####
+
+POST http://localhost:3000/api/v1/user/register
+Content-Type: application/json
+
+{
+  "email": "1@gmail.com",
+  "password": "1"
+}
+
+####
+
+POST http://localhost:3000/api/v1/user/login
+Content-Type: application/json
+
+{
+  "email":"1@gmail.com",
+  "password": "1"
+}
+
+####
+
+DELETE http://localhost:3000/api/v1/user/delete?userId=67057e88ff69fab369bfafc1
