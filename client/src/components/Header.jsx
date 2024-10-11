@@ -38,7 +38,7 @@ export default function Header() {
       <div className="flex md:justify-between justify-center items-center md:flex-row flex-col gap-1 flex-wrap md:px-5 md:py-1 p-2">
         <div className="">
           <Link to="/">
-            <h1 className="text-4xl font-bold">Simple</h1>
+            <h1 className="text-4xl font-bold">Expfree</h1>
           </Link>
         </div>
         <div className="">

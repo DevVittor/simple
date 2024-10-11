@@ -8,6 +8,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import router from "../routes/v1/index.js";
+import admin from "../routes/v1/admin/index.js";
 import { createAdmin } from "../utils/createAdmin.js";
 
 const port = process.env.PORT;
@@ -30,7 +31,11 @@ app.use("/api/v1/", (req, _, next) => {
   next();
 });
 app.use("/api/v1", router);
-//app.use("/api/v1/admin");
+app.use("/api/v1/admin", (req, _, next) => {
+  console.log(`Method: ${req.method} } | Path: ${req.path}`);
+  next();
+});
+app.use("/api/v1/admin", admin);
 
 mongoose
   .connect(process.env.MONGO_URL, {
