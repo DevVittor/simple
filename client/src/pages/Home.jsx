@@ -1,11 +1,12 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+//import axios from "axios";
+import { useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import Search from "../components/Search";
 
 export default function Home() {
   const [post, setPost] = useState([]);
-  console.log(post);
-  useEffect(() => {
+  console.log("Post: ", post);
+  /*useEffect(() => {
     handleDataPost();
   }, []);
 
@@ -17,8 +18,13 @@ export default function Home() {
       console.log(response.data);
       setPost(response.data.post);
     } catch (error) {
-      console.error(error.message);
+      console.error("Error:", error.response.data.error);
     }
+  };*/
+
+  const handleSearchResults = (searchResults) => {
+    console.log("Veio: ", searchResults);
+    setPost(searchResults); // Atualiza o estado dos posts com o resultado da busca
   };
 
   return (
@@ -29,15 +35,18 @@ export default function Home() {
       </Helmet>
       <main>
         <section>
-          <div className="flex flex-col gap-2 md:p-3 p-2">
-            <div>
-              <h1 className="text-4xl font-bold">List Posts</h1>
+          <div className="p-2 flex flex-col gap-2">
+            <div className="">
+              <Search
+                onChangeSearch={handleSearchResults} // Passa a função para atualizar o estado
+                currentSearch=""
+              />
             </div>
             <div className="md:columns-5 columns-1 gap-1 ">
-              {post ? (
+              {Array.isArray(post) && post.length > 0 ? (
                 post.map((item, index) => (
                   <div
-                    className="p-3 rounded-md border border-zinc-100 flex flex-col gap-1 break-inside-avoid mb-1"
+                    className="p-3 rounded-md border border-zinc-100 flex flex-col gap-1.5 break-inside-avoid mb-1"
                     key={index}
                   >
                     <div className="flex justify-between items-center w-full">
@@ -51,14 +60,22 @@ export default function Home() {
                           : "Não informado"}
                       </span>
                     </div>
-                    <h2 className="text-2xl font-bold">{item.title}</h2>
-                    <p className="text-sm text-zinc-700 font-light">
+                    <h2
+                      className="text-2xl font-bold leading-6 line-clamp-2"
+                      title={item.title}
+                    >
+                      {item.title}
+                    </h2>
+                    <p
+                      className="text-sm text-zinc-700 font-light line-clamp-4"
+                      title={item.details}
+                    >
                       {item.details}
                     </p>
                   </div>
                 ))
               ) : (
-                <span>Nnehum post Encontrado</span>
+                <span>Nenhum post Encontrado</span>
               )}
             </div>
           </div>

@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema(
     },
     blocked: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   { timestamps: true }

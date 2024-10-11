@@ -1,6 +1,45 @@
 import postModel from "../models/postModel.js";
 import userModel from "../models/userModel.js";
 
+export const searchPost = async (req, res) => {
+  const { search } = req.query;
+  console.log("Query: ", search);
+  try {
+    if (search) {
+      const post = await postModel.find({
+        title: { $regex: search, $options: "i" },
+        blocked: false,
+      });
+      if (post) {
+        return res.status(200).json({ msg: "Busca feita com sucesso!", post });
+      } else {
+        res.status(404).json({ error: "Não foi possível encontrar o post" });
+      }
+    } else {
+      const countPost = await postModel.countDocuments();
+      if (countPost < 1) {
+        return res
+          .status(404)
+          .json({ error: "Não foi possível encontrar um post" });
+      }
+      const post = await postModel.find({ blocked: false });
+      if (post.length < 1) {
+        return res
+          .status(404)
+          .json({ error: "Não encontrar nenhum post debloqueado" });
+      }
+
+      res.status(200).json({ msg: "Lista de post", post });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error:
+        "Não foi possível receber os dados necessários para fazer uma busca pelo post",
+      details: error.message,
+    });
+  }
+};
+
 export const listPost = async (_, res) => {
   try {
     const countPost = await postModel.countDocuments();
